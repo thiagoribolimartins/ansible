@@ -1,0 +1,4 @@
+---
+  - name: Bloqueando resolv.conf
+    shell: 'chattr +i /etc/resolv.conf'
+    become: true

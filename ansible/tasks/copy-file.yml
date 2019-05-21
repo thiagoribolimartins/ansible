@@ -1,0 +1,9 @@
+- name: copying file resolv.conf
+  copy:
+    src: TreeSize-x64-Demo.exe 
+    dest: /etc/TreeSize-x64-Demo.exe
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+    show_custom_stats: yes

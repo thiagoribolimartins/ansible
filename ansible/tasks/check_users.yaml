@@ -1,0 +1,52 @@
+---
+  - name: Check users
+    shell: 'getent passwd {{ group }} | cut -d: -f1 | tr "," "\n"'
+    changed_when: false 
+    register: existing_users
+
+  - name: Mark remove users
+    set_fact:
+      removed_users: "{{ existing_users.stdout_lines }}"
+
+  - name: Remove user accounts
+    user:
+      name: "{{ item }}"
+      state: absent
+    with_items: "{{ removed_users }}"
+
+  - name: Criando arquivo para edição do arquivo sudoers
+    command: cp -f /etc/sudoers /etc/sudoers.tmp
+
+  - name: Sudoing all users
+    lineinfile:
+      dest: /etc/sudoers.tmp
+      state: absent
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+    with_items:
+       - { regexp: '^thiago.laurito', line: 'thiago.laurito       ALL=(ALL) ALL' }
+       - { regexp: '^gilson.souza', line: 'gilson.souza   ALL=(ALL) ALL' }
+       - { regexp: '^n3.corpflex', line: 'n3.corpflex     ALL=(ALL) ALL' }
+       - { regexp: '^gseg.fernando', line: 'gseg.fernando ALL=(ALL) ALL' }
+       - { regexp: '^rodrigo.palmeiro', line: 'rodrigo.palmeiro   ALL=(ALL) ALL' }
+       - { regexp: '^gseg.corpflex', line: 'gseg.corpflex ALL=(ALL) ALL' }
+       - { regexp: '^n3.eder', line: 'n3.eder     ALL=(ALL) ALL' }
+       - { regexp: '^thiago.silva', line: 'thiago.silva   ALL=(ALL) ALL' }
+       - { regexp: '^carlos.eduardo', line: 'carlos.eduardo       ALL=(ALL) ALL' }
+       - { regexp: '^n3.francisco', line: 'n3.francisco   ALL=(ALL) ALL' }
+       - { regexp: '^n3.ricardo', line: 'n3.ricardo   ALL=(ALL) ALL' }
+       - { regexp: '^fabio.teles', line: 'fabio.teles   ALL=(ALL) ALL' }
+       - { regexp: '^leonardo.pacheco', line: 'leonardo.pacheco   ALL=(ALL) ALL' }
+       - { regexp: '^thiago.rizzardo', line: 'thiago.rizzardo   ALL=(ALL) ALL' }
+       - { regexp: '^n2.corpflex', line: 'n2.corpflex   ALL=(ALL) ALL' }
+       - { regexp: '^opdat.corpflex', line: 'opdat.corpflex   ALL=(ALL) ALL' }
+       - { regexp: '^cassiano.luiz', line: 'cassiano.luiz   ALL=(ALL) ALL' }
+       - { regexp: '^moises.rodrigue', line: 'moises.rodrigue   ALL=(ALL) ALL' }
+       - { regexp: '^solarwinds.ssh', line: 'solarwinds.ssh   ALL=(ALL) ALL' }
+       - { regexp: '^marcelo.moraes', line: 'marcelo.moraes   ALL=(ALL) ALL' }
+       - { regexp: '^amix', line: 'amix   ALL=(ALL) ALL' }
+       - { regexp: '^bruno.cordeiro', line: 'bruno.cordeiro   ALL=(ALL) ALL' }
+       - { regexp: '^diego.barroso', line: 'diego.barroso   ALL=(ALL) ALL' }
+       - { regexp: '^marcelo.sato', line: 'marcelo.sato   ALL=(ALL) ALL' }
+  - name: Checa se o arquivo tem erros e copia para o original
+    shell: /usr/sbin/visudo -q -c -f /etc/sudoers.tmp && cp -f /etc/sudoers.tmp /etc/sudoers

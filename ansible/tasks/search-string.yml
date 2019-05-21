@@ -1,0 +1,15 @@
+- name: Ensure SNMP contains Public
+  lineinfile:
+    path: /etc/snmp/snmpd.conf
+    regexp: '^public'
+    state: absent
+  check_mode: yes
+  register: out
+
+- debug:
+    msg: "Yes, line exists."
+  when: out.changed
+
+#- debug:
+    msg: "Line does NOT exist."
+  when: not out.changed

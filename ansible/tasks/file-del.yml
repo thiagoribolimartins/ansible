@@ -1,0 +1,10 @@
+---
+  - name: Delete Base Duplicada Clamav 
+    file:
+      path: /var/lib/clamav/bytecode.cvd
+      state: absent
+
+  - name: Delete Base Duplicada Clamav
+    file:
+      path: /var/lib/clamav/main.cvd
+      state: absent

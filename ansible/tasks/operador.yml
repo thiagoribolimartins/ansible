@@ -1,0 +1,8 @@
+---
+  - lineinfile:
+      dest: /etc/sudoers
+      state: present
+      regexp: '^operador\s+ALL=\(ALL\)\s*ALL'
+      line: '^#operador\s+ALL=\(ALL\)\s*ALL' 
+      backrefs: yes
+#      validate: '/usr/sbin/visudo -cf %s'

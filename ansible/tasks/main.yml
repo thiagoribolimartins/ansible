@@ -1,0 +1,26 @@
+---
+# tasks file for UserDel
+#  - include: check_users.yaml
+#  - include: operador2.yml
+#  - include: comentsudo.yml
+#  - include: file-del.yml 
+#  - include: ping.yml 
+#  - include: restart-clamav.yml 
+#  - include: copy.yml 
+#  - include: copy-file.yml 
+#  - include: abril-admin.yml 
+#  - include: lock-account.yml 
+#  - include: unlock-account.yml 
+#  - include: remove-user.yml
+#  - include: blocked-file.yml 
+#  - include: update_password.yml
+  - include: version-so.yml
+  - include: check-update.yml
+  - include: uptime.yml  
+#   - include: restart-clamav.yml
+#   - include: check-snmp2.yml 
+#   - include: search_public.yml 
+#   - include: search-string.yml 
+#  - include: altera-linha.yml   
+#  - include: snoopy.yml   
+#  - include: restart-snmp.yml

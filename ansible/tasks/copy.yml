@@ -1,0 +1,8 @@
+
+- name: Copia de Bkp
+  copy:
+    src: /etc/passwd
+    dest: /etc/passwd.bkp
+    owner: root
+    group: root
+    backup: yes

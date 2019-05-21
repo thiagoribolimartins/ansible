@@ -1,0 +1,23 @@
+# Vars
+- name: Set parameters
+  set_fact:
+    newline      : "#operador  ALL=(ALL) NOPASSWD: ALL"
+    lineSearched : "operador  ALL=(ALL) NOPASSWD: ALL"
+    lineModified : "operador  ALL=(ALL) NOPASSWD: ALL"
+
+# Tasks
+- name: Try to replace the line
+  replace:
+    dest    : /etc/sudoers
+    replace : '{{ lineModified }} '
+    regexp  : '{{ lineSearched }}$'
+    backup  : yes
+  register  : checkIfLineIsHere
+
+- name: Line is here, change it
+  lineinfile:
+    state   : present
+    dest    : /etc/sudoers
+    line    : '{{ newline }}'
+    regexp  : '{{ lineModified }}$'
+  when: checkIfLineIsHere.changed

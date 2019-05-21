@@ -1,0 +1,7 @@
+---
+  - lineinfile:
+      path: /etc/snmp/snmpd.conf
+      state: present
+      regexp: '^rocommunity public'
+      line: '#rocommunity public'
+                        

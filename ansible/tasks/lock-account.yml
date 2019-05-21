@@ -1,0 +1,3 @@
+---
+  - shell: 'passwd -l abril.admin'
+    become: true

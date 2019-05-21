@@ -1,0 +1,6 @@
+- name: Remove the user 'Abril Admin'
+  user:
+    name: tzq27f
+    state: absent
+    remove: yes
+    backup: yes

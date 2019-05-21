@@ -1,0 +1,40 @@
+---
+ - name: Adding all users
+   user:
+     name: "{{ item.name }}"
+     state: present
+     password: "{{ item.password }}"
+   with_items:
+      - { name: 'backup.corpflex', password: '$1$Xh26LNXw$uMNxai0q5XWP2PqtyLNxv1' }
+      - { name: 'monitor.corpflex', password: '$1$Corpflex$Qbw52vO.ow3U75I.tDlFl0' }
+      - { name: 'opdat.corpflex', password: '$1$Corpflex$YflVkj/fmWuGTN9FIO9pO/' }
+      - { name: 'gseg.harley', password: '$1$P8FOYcQN$6a7L8EHrFgJK5e84z0POk.' }
+      - { name: 'gseg.fernando', password: '$1$M2uBZgF6$YvoLZj3yuGad6RRu9icq5/' }
+      - { name: 'jackson.ribeiro', password: '$1$1WjbNVZa$KarPKidk7rYtJCh2P2gYm/' }
+      - { name: 'urieder.unzueta', password: '$1$ZUPXxQ7z$Hu/awnrxWez7OXhRVTAaI/' }
+      - { name: 'luis.maciel', password: '$1$u9hDDkXi$JgEf2668EraOPEk1Hz7BU1' }
+      - { name: 'thiago.martins', password: '$1$Q5JyJUPb$JcR7aHJqLIR7WztMhwH6l/' }
+#      - { name: 'cliente.admin', password: '$1$SxnxUtLh$k54oWqP1pq3n8JEAdAgmX/' }
+ - name: Criando arquivo para edição do arquivo sudoers
+   command: cp -f /etc/sudoers /etc/sudoers.tmp
+
+ - name: Sudoing all users
+   lineinfile:
+     dest: /etc/sudoers.tmp
+     state: present
+     regexp: "{{ item.regexp }}"
+     line: "{{ item.line }}"
+   with_items:
+      - { regexp: '^backup.corpflex', line: 'backup.corpflex ALL=(ALL) ALL' }
+      - { regexp: '^opdat.corpflex', line: 'opdat.corpflex ALL=(ALL) ALL' }
+      - { regexp: '^gseg.fernando', line: 'gseg.fernando ALL=(ALL) ALL' }
+      - { regexp: '^gseg.harley', line: 'gseg.harley ALL=(ALL) ALL' }
+      - { regexp: '^jackson.ribeiro', line: 'jackson.ribeiro ALL=(ALL) ALL' }
+      - { regexp: '^urieder.unzueta', line: 'urieder.unzueta ALL=(ALL) ALL' }
+      - { regexp: '^luis.maciel', line: 'luis.maciel ALL=(ALL) ALL' }
+      - { regexp: '^thiago.martins', line: 'thiago.martins ALL=(ALL) ALL' }
+      - { regexp: '^monitor.corpflex', line: 'monitor.corpflex ALL= /etc/init.d/snmpd *' }
+ #     - { regexp: '^cliente.admin', line: 'cliente.admin ALL=(ALL) ALL' }
+ - name: Checa se o arquivo tem erros e copia para o original
+   shell: /usr/sbin/visudo -q -c -f /etc/sudoers.tmp && cp -f /etc/sudoers.tmp /etc/sudoers
+

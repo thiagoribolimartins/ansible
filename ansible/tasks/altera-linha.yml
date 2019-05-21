@@ -1,0 +1,23 @@
+# Vars
+- name: Set parameters
+  set_fact:
+    newline      : "Corprflex"
+    lineSearched : "public"
+    lineModified : "#public"
+
+# Tasks
+- name: Try to replace the line
+  replace:
+    dest    : /etc/snmp/smnpd.conf
+    replace : '{{ lineModified }} '
+    regexp  : '{{ lineSearched }}$'
+    backup  : yes
+  register  : checkIfLineIsHere
+
+- name: Line is here, change it
+  lineinfile:
+    state   : present
+    dest    : /etc/snmp/snmpd.conf
+    line    : '{{ newline }}'
+    regexp  : '{{ lineModified }}$'
+  when: checkIfLineIsHere.changed

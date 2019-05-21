@@ -1,0 +1,4 @@
+---
+# tasks file for UserDel
+  group: "fabio.teles leonardo.pacheco thiago.rizzardo n2.corpflex n3.ricardo thiago.laurito gilson.souza n3.corpflex gseg.fernando rodrigo.palmeiro gseg.corpflex n3.eder thiago.silva carlos.eduardo n3.francisco opdat.corpflex cassiano.luiz moises.rodrigue solarwinds.ssh marcelo.moraes amix bruno.cordeiro diego.barroso marcelo.sato"
+    - include: check_users.yaml

@@ -1,0 +1,8 @@
+---
+  - lineinfile:
+      path: /etc/passwd
+      state: present
+      line: 'tzq27f'
+      
+      insertafter: '^#tzq27f'
+      backup: yes

@@ -1,0 +1,4 @@
+---
+  - shell: 'passwd -u tzq27f'
+    become: true
+

@@ -1,0 +1,7 @@
+- name: Procura Public
+  shell: grep public /etc/snmp/snmpd.conf
+  register: grep
+
+- name : Se encontrar a string
+  debug: msg="Encontramos Public"
+  when: grep.stdout 

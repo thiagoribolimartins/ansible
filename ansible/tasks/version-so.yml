@@ -1,0 +1,4 @@
+- name: Print linux distribution and version
+  command: cat /etc/system-release
+  register: login
+- debug: msg="{{ login.stdout }}"

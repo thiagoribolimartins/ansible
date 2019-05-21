@@ -1,0 +1,8 @@
+---
+  - lineinfile:
+      path: /etc/sudoers
+      state: present
+      regexp: '^abril.admin\s+ALL=\(ALL\)\s*ALL'
+      line: '#abril.admin ALL=(ALL) ALL'
+      backrefs: yes
+      validate: '/usr/sbin/visudo -cf %s'
